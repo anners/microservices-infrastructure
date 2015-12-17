@@ -2,6 +2,8 @@ variable "availability_zones" {
   default = "a,b,c" 
 }
 
+variable "network_ipv4" {default = "10.1.0.0/16"}
+variable "network_subnet_ip4" {default = "10.1.0.0/16"}
 variable "cidr_blocks" {
   default = {
     az0 = "10.1.1.0/24"
@@ -10,19 +12,9 @@ variable "cidr_blocks" {
   }
 }
 variable "datacenter" {default = "aws"}
-variable "network_ipv4" {default = "10.1.0.0/16"}
-variable "network_subnet_ip4" {default = "10.1.0.0/16"}
-
-variable "source_ami" { }
 variable "ssh_key" {default = "~/.ssh/id_rsa.pub"}
 variable "ssh_username"  {default = "centos"}
 variable "long_name" {default = "anners"}
-
-variable "region" {
-  description = "AWS region"
-  default = "us-west-2"
-}
-
 
 
 resource "aws_vpc" "main" {
@@ -37,7 +29,8 @@ resource "aws_subnet" "subnets" {
   vpc_id = "${aws_vpc.main.id}"
   count = "${length(split(",", var.availability_zones))}"
   cidr_block = "${lookup(var.cidr_blocks, concat("az", count.index))}"
-  availability_zone = "${var.region}${element(split(",", var.availability_zones), count.index)}"
+  map_public_ip_on_launch = true
+  availability_zone = "${provider.aws.region}${element(split(",", var.availability_zones), count.index)}"
 }
 
 resource "aws_internet_gateway" "main" {
@@ -49,7 +42,6 @@ resource "aws_internet_gateway" "main" {
 
 resource "aws_route_table" "main" {
   vpc_id = "${aws_vpc.main.id}"
-
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = "${aws_internet_gateway.main.id}"
@@ -65,4 +57,7 @@ resource "aws_main_route_table_association" "main" {
   route_table_id = "${aws_route_table.main.id}"
 }
 
+output "vpc_azs" {
+  value = "${join(",",aws_subnet.subnets.*.availability_zone)}"
+}
 
