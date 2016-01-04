@@ -52,11 +52,10 @@ environment instead:
 ``account.json``
 ^^^^^^^^^^^^^^^^
 
-Terraform also needs a GCE service account to be able to create and manage
+Terraform also needs service account to be able to create and manage
 resources in your project. You can create one by going to the "Credentials"
-screen under "APIs & Auth" in the GCE UI (marked 1 and 2 in the image below.)
-Service accounts are created under the "Create new Client ID" button (marked 3
-in the image below.)
+screen under "API Manager" in the GCP Product and Services menu (marked 1 and 2 in the image below.)
+Service accounts are created under "New credentials -> Service account key" 
 
 .. note:: You'll need to be an account owner to create this file - if you're
           not, ask your account owner to do this step for you.
@@ -64,17 +63,17 @@ in the image below.)
 .. image:: /_static/gce_service_account.png
    :alt: The GCE UI for creating a service account.
 
-When creating your Client ID, be sure to select "Service account" in the
-dialogue that appears.
+You will either need to create an new service account or use an exisiting one. For this example we
+created one called ``terraform``. 
 
 .. image:: /_static/gce_service_account_dialogue.png
    :alt: The GCE dialogue for creating a service account. "Service account" is
          selected.
 
 Once you've created your account, your browser will download a JSON file
-containing the credentials. Point ``account_file`` to the path you decide to
+containing the credentials. Point ``credentials`` to the path you decide to
 store that file in. If you're running Terraform from a Google Compute instance
-with an associated service account, you may leave the ``account_file`` parameter
+with an associated service account, you may leave the ``credentials`` parameter
 blank.
 
 Provisioning
