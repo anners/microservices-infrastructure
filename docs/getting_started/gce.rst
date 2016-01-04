@@ -76,11 +76,17 @@ store that file in. If you're running Terraform from a Google Compute instance
 with an associated service account, you may leave the ``credentials`` parameter
 blank.
 
+.. note:: If you get the following error: 
+          * module.gce-dc.provider.google: "account_file": [DEPRECATED] Use the credentials field instead
+          You will need to add : account_file = "" to the provider section of your gce.tf file. 
+          This is a know bug in older version of terraform.
+
+
 Provisioning
 ------------
 
 Once you're all set up with the provider, customize your modules (for
-``control_count`` and ``worker_count``), run ``terraform get`` to prepare
+``control_count``, `` edge_count`` and ``worker_count``), run ``terraform get`` to prepare
 Terraform to provision your cluster, ``terraform plan`` to see what will be
 created, and ``terraform apply`` to provision the cluster. Afterwards, you can
 use the instructions in :doc:`getting started <index>` to install
