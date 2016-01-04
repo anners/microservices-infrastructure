@@ -26,16 +26,16 @@ customization. In the next sections, we'll explain how to obtain these settings.
 Basic Settings
 ^^^^^^^^^^^^^^
 
-``project`` and ``region`` are unique values for each project in Google Compute
-Engine. ``project`` is available from the project overview page (use the short
-ID.) You can select which region you want to use from any of the GCE zones (see
-the image below) If you're in the United States, `us-central1` is a good choice.
-If you're in Europe, `europe-west1` might be your best bet. If you haven't
+``project``, ``region`` and ``zone`` are unique values for each project in Google Compute
+Engine. ``project`` is available from the project overview page (use the Project
+ID not the Project Name.) You can select which region and zone you want to use from any of the GCE zones (see
+the image below) If you're in the United States, `us-central1` and `us-central1-a` are a good choice.
+If you're in Europe, `europe-west1` and `europe-west1-b` might be your best bets. If you haven't
 previously activated Compute Engine for your project, this is a good time to do
-it.
+it. 
 
 .. image:: /_static/gce_zones.png
-   :alt: The GCE zones available at Compute -> Compute Engine -> Zones in their
+   :alt: The GCE zones available at Product and Services menu -> Compute Engine -> Zones in their
          interface.
 
 If you don't want to commit these values in a file, you can source them from the
