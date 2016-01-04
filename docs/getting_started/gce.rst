@@ -54,8 +54,8 @@ environment instead:
 
 Terraform also needs service account to be able to create and manage
 resources in your project. You can create one by going to the "Credentials"
-screen under "API Manager" in the GCP Product and Services menu (marked 1 and 2 in the image below.)
-Service accounts are created under "New credentials -> Service account key" 
+screen under "API Manager" in the GCP Product and Services menu.
+Service accounts are created under New credentials -> Service account key.
 
 .. note:: You'll need to be an account owner to create this file - if you're
           not, ask your account owner to do this step for you.
@@ -76,11 +76,6 @@ store that file in. If you're running Terraform from a Google Compute instance
 with an associated service account, you may leave the ``credentials`` parameter
 blank.
 
-.. note:: If you get the following error: 
-          * module.gce-dc.provider.google: "account_file": [DEPRECATED] Use the credentials field instead
-          You will need to add : account_file = "" to the provider section of your gce.tf file. 
-          This is a know bug in older version of terraform.
-
 
 Provisioning
 ------------
@@ -91,6 +86,14 @@ Terraform to provision your cluster, ``terraform plan`` to see what will be
 created, and ``terraform apply`` to provision the cluster. Afterwards, you can
 use the instructions in :doc:`getting started <index>` to install
 microservices-infrastructure on your new cluster.
+
+.. note:: If you get the following error: 
+  
+  *** module.gce-dc.provider.google: "account_file": [DEPRECATED] Use the credentials field instead**
+  
+  You will need to add : ``account_file = ""`` to the provider section of your gce.tf file. 
+  
+  This is a know bug in older version of terraform.
 
 Configuring DNS with Google Cloud DNS
 -------------------------------------
